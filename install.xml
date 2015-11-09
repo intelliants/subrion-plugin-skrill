@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<plugin name="skrill">
+	<title>Skrill</title>
+	<summary>Skrill payment gateway integration allows to accept funds using Skrill.com payment processing company.</summary>
+	<author>Intelliants LLC</author>
+	<contributor>Intelliants LLC</contributor>
+	<version>3.0.0</version>
+	<date>2014-06-24</date>
+	<compatibility>3.0.0</compatibility>
+
+	<hooks>
+		<hook name="paymentButtons" type="smarty" filename="plugins/skrill/templates/button.tpl"><![CDATA[]]></hook>
+	</hooks>
+
+	<config group="financial" name="skrill" custom="0" type="divider" description="2Checkout">2Checkout</config>
+	<config group="financial" name="checkout_id" custom="0" type="text" description="2Checkout ID"><![CDATA[ 123456 ]]></config>
+	<config group="financial" name="checkout_secret" custom="0" type="text" description="2Checkout secret word"><![CDATA[]]></config>
+	<config group="financial" name="checkout_demo" custom="0" type="radio" values="0,1" description="Demo mode">0</config>
+	<config group="financial" name="checkout_currency" values="USD,AUD,BRL,GBP,CAD,DKK,EUR,HKD,INR,ILS,JPY,LTL,MYR,MXN,NZD,NOK,PHP,RON,RUB,SGD,ZAR,SEK,CHF,TRY,ARS,AED" type="select" description="2checkout сurrency">USD</config>
+
+	<phrases>
+		<phrase key="checkout_secret" category="tooltip"><![CDATA[ To set up the secret word please log in to your 2CO account, click on the “Account” tab, then click on “Site Management” subcategory. On the “Site Management” page you will enter the Secret Word in the field provided under Direct Return. After you have entered your Secret Word click the blue “Save Changes” button at the bottom of the page.
+The secret word is used by those wishing to check the MD5 hash passback, with a routine on their site. It is also needed by those using a program like the membership or download client. The secret word is also used to calculate the MD5 hash which is sent to verify the authenticity of INS posts.
+The secret word should be a single or compound word or group of letters and numbers with no spaces. Examples: Monkey1mouse, 4smal3phone, gooblyWbubze. ]]></phrase>
+		<phrase key="2checkout_payment_completed" category="common">Payment has been completed successfully.</phrase>
+		<phrase key="2checkout_payment_failed" category="common">Payment failed. Please contact the website administrator.</phrase>
+		<phrase key="transaction_exists" category="common">Transaction already exists in our records.</phrase>
+	</phrases>
+
+	<install>
+		<sql>
+			<![CDATA[
+INSERT INTO `{prefix}payment_gateways` (`name`, `gateway`, `plugin`) VALUES('skrill', 'skrill', 'skrill');
+			]]>
+		</sql>
+	</install>
+
+	<uninstall>
+		<sql>
+			<![CDATA[
+DELETE FROM `{prefix}payment_gateways` WHERE `name` = 'skrill';
+			]]>
+		</sql>
+	</uninstall>
+</plugin>
